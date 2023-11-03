@@ -15,7 +15,7 @@
   export default{ 
     name: 'LayoutIndex'
   }
-
+ 
 </script>
 
 <style>
