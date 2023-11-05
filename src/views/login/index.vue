@@ -61,6 +61,7 @@ import { Toast } from 'vant'
     },
     async created() { 
       // 通过调用方法来实现图片验证码的显示
+      //
       this.getCode()
     }
   }
