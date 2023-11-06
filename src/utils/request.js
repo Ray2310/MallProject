@@ -1,5 +1,5 @@
 // 封装axios请求方法， 封装到request模块
-import Vue from "vue"
+import { Toast } from "vant"
 import axios from "axios"
 //1.  创建axios实例。 以后通过使用创建出来的axios实例 ， 进行自定义配置
 // 好处： 不会污染原始的aixos实例
@@ -22,16 +22,19 @@ instance.interceptors.request.use(function (config) {
 });
 
 // 添加响应拦截器
-instance.interceptors.response.use(function (response) {
-  // 2xx 范围内的状态码都会触发该函数。
-  // 对响应数据做点什么(默认的axios会包装一层data)
-  return response.data;
+request.interceptors.response.use(function (response) {
+  const res = response.data
+  if (res.status !== 200) {
+    // 显示错误信息
+    Toast(res.message)
+    return Promise.reject(res.message)
+  }
+  // 对响应数据做点什么
+  return res
 }, function (error) {
-  // 超出 2xx 范围的状态码都会触发该函数。
   // 对响应错误做点什么
-  return Promise.reject(error);
-});
-
+  return Promise.reject(error)
+})
 
 //3. 导出
 export default instance
