@@ -42,7 +42,7 @@
   // 导入相关内容
   import { getPicCode,getMsCode,loginClick } from '@/api/login'
 import { Toast } from 'vant'
-  export default{ 
+  export default{  
     data() {
       return {
         //1. 设置获取图形验证码的参数
