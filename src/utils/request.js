@@ -15,19 +15,29 @@ const instance = axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
+  // 开启loading
+  Toast.loading({
+    message: '加载中...',
+    forbidClick: true, // 禁止背景点击（ 节流防抖操作 ）
+    loadingType: 'spinner', 
+    duration: 0   //不会自动消失
+  })
   return config;
+
 }, function (error) {
   // 对请求错误做些什么
   return Promise.reject(error);
 });
 
 // 添加响应拦截器
-request.interceptors.response.use(function (response) {
+instance.interceptors.response.use(function (response) {
   const res = response.data
   if (res.status !== 200) {
     // 显示错误信息
     Toast(res.message)
     return Promise.reject(res.message)
+  }else{
+    Toast.clear()
   }
   // 对响应数据做点什么
   return res

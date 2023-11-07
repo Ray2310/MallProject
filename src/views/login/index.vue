@@ -41,7 +41,8 @@
 <script>
   // 导入相关内容
   import { getPicCode,getMsCode,loginClick } from '@/api/login'
-import { Toast } from 'vant'
+  import { Toast } from 'vant'
+  import  { mapMutations } from 'vuex'
   export default{  
     data() {
       return {
@@ -68,6 +69,7 @@ import { Toast } from 'vant'
     },
     name: 'LoginPage',
     methods: {
+      ...mapMutations('user', ['setUserInfo']),
       // 获取图形验证码
       async getPicCode(){
       // 使用自己封装的axios来使用， 这样就不会污染原始的axios请求
@@ -85,6 +87,7 @@ import { Toast } from 'vant'
         if (!this.timer && this.second === this.totalSecond) {
             // 发送获取短信验证码的请求
           const res = await getMsCode(this.picCode, this.picKey, this.mobile)
+            // 这里其实可以省略， 因为我们已经配置了响应拦截器
           if(res.status != 200 ) {
             this.$toast('图形验证码错误')
             return
@@ -134,6 +137,9 @@ import { Toast } from 'vant'
         //2. 调用请求信息
         const res = await loginClick(this.isParty, this.mobile, this.partyData, this.smsCode)
         console.log(res)
+        //2.1 将登录信息存储到state中
+        this.setUserInfo(res.data)
+
         console.log("登录成功")
         //3. 路由转发
         this.$router.push('/')
