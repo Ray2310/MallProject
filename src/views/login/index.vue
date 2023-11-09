@@ -41,7 +41,6 @@
 <script>
   // 导入相关内容
   import { getPicCode,getMsCode,loginClick } from '@/api/login'
-  import { Toast } from 'vant'
   import  { mapMutations } from 'vuex'
   export default{  
     data() {

@@ -20,3 +20,17 @@ export const setInfo = (info) => {
 export const removeInfo = () => {
   localStorage.removeItem(INFO_KEY)
 }
+
+// 持久化搜索历史
+// 设置持久化的关键字
+const HISTORY_KEY = "history_list"
+// 获取搜索历史
+export const getHistoryList = ()=> {
+  const result = localStorage.getItem(HISTORY_KEY)
+  return result ? JSON.parse(result) : [] // 如果没有就传一个空数组
+}
+
+// 设置(移除)搜索历史
+export const setHistoryList = (arr) => {
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(arr))
+}
