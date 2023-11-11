@@ -11,3 +11,12 @@ export const getProList = (obj) => {
     }
   })
 }
+
+//2. 获取商品详情
+export const getProDetail = (goodsId) => {
+  return request.get('/goods/detail', {
+    params: {
+      goodsId
+    }
+  })
+}
