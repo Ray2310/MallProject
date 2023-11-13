@@ -79,6 +79,7 @@
         <van-icon name="shopping-cart-o" />
         <span>购物车</span>
       </div>
+      <!-- test 网络 -->
       <div class="btn-add">加入购物车</div>
       <div class="btn-buy">立刻购买</div>
     </div>
