@@ -20,3 +20,13 @@ export const getProDetail = (goodsId) => {
     }
   })
 }
+
+//3. 获取商品评价
+export const getProCommments = (goodsId, limit) => {
+  return request.get('/comment/listRows', {
+    params: {
+      goodsId,
+      limit
+    }
+  })
+}
