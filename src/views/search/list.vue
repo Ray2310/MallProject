@@ -21,7 +21,7 @@
       <div class="sort-item">销量</div>
       <div class="sort-item">价格 </div>
     </div>
-
+    
     <div class="goods-list">
       <GoodsItem v-for="item in proList" :key="item.goods_id" :item="item"></GoodsItem>
     </div>
