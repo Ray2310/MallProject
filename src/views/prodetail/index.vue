@@ -3,11 +3,11 @@
   <div class="prodetail">
     <van-nav-bar fixed title="商品详情页" left-arrow @click-left="$router.go(-1)" />
 
+    <!--做轮波图效果的部分 -->
     <van-swipe :autoplay="3000" @change="onChange">
       <van-swipe-item v-for="(image, index) in images" :key="index">
         <img :src="image.external_url" />
       </van-swipe-item>
-
       <template #indicator>
         <div class="custom-indicator">{{ current + 1 }} / {{ images.length }}</div>
       </template>
@@ -28,8 +28,8 @@
 
       <div class="service">
         <div class="left-words">
-          <span><van-icon name="passed" />七天无理由退货</span>
-          <span><van-icon name="passed" />48小时发货</span>
+          <span><van-icon name="passed"/>七天无理由退货</span>
+          <span><van-icon name="passed"/>48小时发货</span>
         </div>
         <div class="right-icon">
           <van-icon name="arrow" />
@@ -80,6 +80,9 @@
       <div @click="addFn" class="btn-add">加入购物车</div>
       <div @click="buyFn" class="btn-buy">立刻购买</div>
     </div>
+
+
+    
     <!-- 加入购物车弹层 也就是显示最上面的内容-->
     <van-action-sheet v-model="showPannel" :title="mode === 'cart' ? '加入购物车' : '立刻购买'">
       <div class="product">
@@ -100,7 +103,7 @@
         </div>
         <div class="num-box">
           <span>数量</span>
-          数字框占位
+          <CountBox v-model="addCount"></CountBox>
         </div>
         <div class="showbtn" v-if="detail.stock_total > 0 ? true : false">
           <div class="btn" v-if="mode === 'cart'">加入购物车</div>
@@ -114,6 +117,7 @@
   </div>
 </template>
 <script>
+import CountBox from '@/components/CountBox'
 import { getProDetail, getProCommments } from '@/api/product'
 import defaultImg from '@/assets/default-avatar.png'
 export default {
@@ -122,14 +126,18 @@ export default {
     return {
       images: [],
       current: 0,
-      detail: {},
+      detail: {}, // 接收商品详情内容的
       commentList: [] ,// 评价列表
       total: 0, // 评论总数
       defaultImg ,// 默认头像
       showPannel: false , // 默认弹层
       mode: 'cart' , // 用来标记弹层状态的， 默认是cart状态
+      addCount: 1, // 用来标记弹层中用户下单的数量
 
     }
+  },
+  components: {
+    CountBox
   },
   computed: {
     goodsId () {
@@ -157,6 +165,8 @@ export default {
       const { data: { detail } } = await getProDetail(this.goodsId)
       this.detail = detail
       this.images = detail.goods_images
+      console.log("获取detail详情: ")
+      console.log(this.images)
     },
     // 获取商品评论
     async getComments () {
