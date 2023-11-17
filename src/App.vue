@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import prodetail from '@/views/prodetail'
 export default {
   data () { 
     return {

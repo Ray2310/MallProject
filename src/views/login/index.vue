@@ -141,8 +141,14 @@
 
         console.log("登录成功")
         //3. 路由转发
-        this.$router.push('/')
+        //3.1 判断地址栏是否存在回弹地址 如果存在那么就需要跳转到对应的回弹地址上
+        if(this.$route.query.backUrl){
+          this.$router.replace(this.$route.query.backUrl)
+        }else{
+          this.$router.push('/')
+        }
         this.$toast('登录成功')
+
       }
 
     },

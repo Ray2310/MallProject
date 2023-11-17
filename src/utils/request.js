@@ -1,6 +1,7 @@
 // 封装axios请求方法， 封装到request模块
 import { Toast } from "vant"
 import axios from "axios"
+import store from "@/store";
 //1.  创建axios实例。 以后通过使用创建出来的axios实例 ， 进行自定义配置
 // 好处： 不会污染原始的aixos实例
 const instance = axios.create({
@@ -15,6 +16,11 @@ const instance = axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
+  const token = store.getters.token
+  if (token) {
+    config.headers['Access-Token'] = token
+    config.headers.platform = 'H5'
+  }
   // 开启loading
   Toast.loading({
     message: '加载中...',
