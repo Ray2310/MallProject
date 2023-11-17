@@ -184,6 +184,8 @@ export default {
         }).catch(() => {})
         return
       }
+      // update
+      
       const { data } = await addCart(this.goodsId, this.addCount, this.detail.skuList[0].goods_sku_id)
       this.cartTotal = data.cartTotal
       this.$toast('加入购物车成功')
