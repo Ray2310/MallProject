@@ -94,7 +94,6 @@
         </div>
       </div>
     </div>
-
     <!-- 给一个判断， 如果用户未登录， 那么就直接不需要这个退出登录 -->
     <div class="logout-btn" v-if="this.$store.getters.token">
       <button @click="logout">退出登录</button>
@@ -103,7 +102,7 @@
 </template>
 
 <script>
-import { getUserInfoDetail } from '@/api/user.js'
+import { getUserInfoDetail } from'@/api/user.js'
 export default {
   name: 'UserPage',
   data () {
