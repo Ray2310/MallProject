@@ -47,7 +47,7 @@
               <span>¥ <i class="totalPrice">{{ selectCartPrice }}</i></span>
             </div>
             <!-- :class="{ disabled: selectCount === 0 }" 作用是如果商品数量 <= 0那么结算就不能高亮显示 -->
-            <div v-if="!isEdit" class="goPay" :class="{ disabled: selectCount === 0 }">结算({{ selectCount }})</div>
+            <div v-if="!isEdit" class="goPay" :class="{ disabled: selectCount === 0 }" @click="goPay">结算({{ selectCount }})</div>
             <div v-else :class="{ disabled: selectCount === 0 }" @click="handleDel" class="delete">
               删除({{ selectCount }})
             </div>
@@ -104,6 +104,20 @@ export default {
     CountBox,
   },
   methods: { 
+    // 用户点击之后进行结算
+    goPay() {
+      if(this.selectCount > 0){
+        this.$router.push({
+          path: '/pay',
+          query:{
+            mode: 'cart',
+            cartIds: this.selectCartList.map(item => item.id).join(','),//选中的商品id 全部结合成为一个字符串
+            // 最后组合成为的形式： http://localhost:8080/#/pay?mode=cart&cartIds=45251,45252
+          }
+        })
+      }
+
+    },
     selectAll() { 
       this.$store.commit('cart/changeCheckedAll')
     },

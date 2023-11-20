@@ -61,6 +61,7 @@ const router = new VueRouter({
 
 // 定义数组存放需要用户登录才能访问的页面
 const authUrl = ['/pay','/myorder']
+// pay 和 myorder
 
 // 配置全局导航守卫
 router.beforeEach((to , from, next) => {
@@ -74,7 +75,7 @@ router.beforeEach((to , from, next) => {
   //  是否是我们用户需要登录才能访问的页面
   // 如果不是， 那么就直接 next() 放行
   // 通过getters封装我们获取token的请求
-  const token =  store.getters.getToken
+  const token =  store.getters.token
   if(!authUrl.includes(to.path)){
     next() 
     return

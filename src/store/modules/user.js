@@ -24,6 +24,10 @@ export default {
   },
   // actions负责进行异步操作， 一般需要调用mutation中的方法
   actions: {
+    logout (context) {
+      context.commit('setUserInfo', {})
+      context.commit('cart/setCartList', [], { root: true })
+    }
   },
 
 

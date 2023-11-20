@@ -21,7 +21,7 @@
           </li>
         </ul>
       </div>
-      <div class="right">
+      <div class="right" v-if="list[activeIndex].children">
         <div @click="$router.push(`/searchlist?categoryId=${item.category_id}`)" v-for="item in list[activeIndex].children" :key="item.category_id" class="cate-goods">
           <img :src="item.image.external_url" alt="">
           <p>{{ item.name }}</p>
@@ -46,8 +46,9 @@ export default {
   },
   methods: {
     async getCategoryList () {
-      const { data: { list } } = await getCategoryData()
-      this.list = list
+      const res = await getCategoryData()
+      this.list = res.data.list
+      console.log(this.list)
     }
   },
   
