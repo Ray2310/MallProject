@@ -1,4 +1,5 @@
 # mall-project
+前端电商项目， 基于Vue、Js实现
 
 ## Project setup
 ```
